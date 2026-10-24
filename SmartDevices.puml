@@ -1,0 +1,56 @@
+@startuml
+abstract class SmartDevice {
+  - id: int {readOnly}
+  - name: String
+  - brand: String
+  {static} - totalDevices: int
+  + SmartDevice(name: String, brand: String)
+  + getId(): int
+  + getName(): String
+  + getBrand(): String
+  + setName(name: String): void
+  + setBrand(brand: String): void
+  {static} + getTotalDevices(): int
+  {abstract} + displayInfo(): void
+}
+
+interface WiFiConnectable {
+  + connectToWiFi(networkName: String): void
+  + disconnectFromWiFi(): void
+}
+
+class SmartLight {
+  - on: boolean
+  - connected: boolean
+  + turnOn(): void
+  + turnOff(): void
+  + displayInfo(): void
+  + connectToWiFi(networkName: String): void
+  + disconnectFromWiFi(): void
+}
+
+class SmartFan {
+  - on: boolean
+  - speed: int
+  + turnOn(): void
+  + turnOff(): void
+  + adjustSpeed(speed: int): void
+  + displayInfo(): void
+}
+
+class SmartCamera {
+  - recording: boolean
+  - connected: boolean
+  + startRecording(): void
+  + stopRecording(): void
+  + displayInfo(): void
+  + connectToWiFi(networkName: String): void
+  + disconnectFromWiFi(): void
+}
+
+SmartLight --|> SmartDevice
+SmartFan --|> SmartDevice
+SmartCamera --|> SmartDevice
+SmartLight ..|> WiFiConnectable
+SmartCamera ..|> WiFiConnectable
+@enduml
